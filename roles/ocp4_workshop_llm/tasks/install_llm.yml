@@ -1,0 +1,12 @@
+---
+- name: "Ensure namespace for LLM exists"
+  kubernetes.core.k8s:
+    state: present
+    api_version: v1
+    kind: Namespace
+    name: "{{ ocp4_workshop_llm_llm_namespace }}"
+
+- name: Deploy LLM application
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'llm-application.yaml.j2') }}"

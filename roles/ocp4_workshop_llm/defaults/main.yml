@@ -1,0 +1,128 @@
+become_override: false
+ocp_username: opentlc-mgr
+silent: false
+
+# ------------------------------------------------
+# OCP4 Authentication
+# ------------------------------------------------
+
+ocp4_workload_authentication_admin_user: admin
+
+# ------------------------------------------------
+# OpenShift Data Foundation
+# ------------------------------------------------
+ocp4_workshop_llm_data_foundation_channel: stable-4.14
+ocp4_workshop_llm_data_foundation_catalogsource_setup: false
+ocp4_workshop_llm_data_foundation_catalogsource_name: ""
+ocp4_workshop_llm_data_foundation_catalogsource_image: ""
+ocp4_workshop_llm_data_foundation_catalogsource_image_tag: ""
+ocp4_workshop_llm_data_foundation_ceph_storage_class_name: gp3-csi
+ocp4_workshop_llm_data_foundation_ceph_storage_osd_size: 500Gi
+# Install Ceph Toolbox
+ocp4_workshop_llm_data_foundation_install_toolbox: false
+ocp4_workshop_llm_data_foundation_update_default_storage_class: true
+ocp4_workshop_llm_data_foundation_new_default_storage_class_name: ocs-storagecluster-ceph-rbd
+
+# ------------------------------------------------
+# Machinesets
+# ------------------------------------------------
+ocp4_workshop_llm_machinesets_disable_default_machinesets: false
+ocp4_workshop_llm_machinesets_wait_for_nodes: false
+
+ocp4_workshop_llm_machinesets_machineset_groups:
+  - name: worker-gpu
+    autoscale: true
+    total_replicas: 1
+    total_replicas_min: 1
+    total_replicas_max: 3
+    role: worker-gpu
+    taints:
+      - key: nvidia.com/gpu
+        value: true
+        effect: NoSchedule
+    instance_type: "g5.2xlarge"
+
+# ------------------------------------------------
+# NVidia GPU Setup
+# ------------------------------------------------
+ocp4_workshop_llm_nfd_operator_namespace: openshift-nfd
+ocp4_workshop_llm_nfd_operator_channel: "stable"
+ocp4_workshop_llm_nfd_operator_automatic_install_plan_approval: true
+ocp4_workshop_llm_nfd_operator_starting_csv: ""
+ocp4_workshop_llm_nfd_operator_wait_for_deploy: true
+ocp4_workshop_llm_nfd_operator_use_catalog_snapshot: false
+ocp4_workshop_llm_nfd_operator_catalogsource_name: ""
+ocp4_workshop_llm_nfd_operator_catalog_snapshot_image: ""
+ocp4_workshop_llm_nfd_operator_catalog_snapshot_image_tag: ""
+ocp4_workshop_llm_nvidia_gpu_operator_namespace: nvidia-gpu-operator
+ocp4_workshop_llm_nvidia_gpu_operator_channel: v23.9
+ocp4_workshop_llm_nvidia_gpu_operator_automatic_install_plan_approval: true
+ocp4_workshop_llm_nvidia_gpu_operator_starting_csv: ""
+ocp4_workshop_llm_nvidia_gpu_operator_wait_for_deploy: true
+ocp4_workshop_llm_nvidia_gpu_operator_use_catalog_snapshot: false
+ocp4_workshop_llm_nvidia_gpu_operator_catalogsource_name: ""
+ocp4_workshop_llm_nvidia_gpu_operator_catalog_snapshot_image: ""
+ocp4_workshop_llm_nvidia_gpu_operator_catalog_snapshot_image_tag: ""
+
+# ------------------------------------------------
+# OpenShift Gitops
+# ------------------------------------------------
+ocp4_workshop_llm_openshift_gitops_channel: latest
+ocp4_workshop_llm_openshift_gitops_pipelines_csv_prefix: openshift-pipelines-operator-rh
+ocp4_workshop_llm_openshift_gitops_use_catalog_snapshot: false
+
+ocp4_workshop_llm_openshift_gitops_setup_cluster_admin: true
+ocp4_workshop_llm_openshift_gitops_update_resources: true
+ocp4_workshop_llm_openshift_gitops_update_route_tls: true
+
+ocp4_workshop_llm_openshift_gitops_controller_update: true
+ocp4_workshop_llm_openshift_gitops_controller_requests_cpu: "2"
+ocp4_workshop_llm_openshift_gitops_controller_requests_memory: 4Gi
+ocp4_workshop_llm_openshift_gitops_controller_limits_cpu: "4"
+ocp4_workshop_llm_openshift_gitops_controller_limits_memory: 4Gi
+
+ocp4_workshop_llm_openshift_gitops_repo_update: true
+ocp4_workshop_llm_openshift_gitops_repo_requests_cpu: 500m
+ocp4_workshop_llm_openshift_gitops_repo_requests_memory: 512Mi
+ocp4_workshop_llm_openshift_gitops_repo_limits_cpu: "2"
+ocp4_workshop_llm_openshift_gitops_repo_limits_memory: 2Gi
+
+ocp4_workshop_llm_openshift_gitops_rbac_update: true
+ocp4_workshop_llm_openshift_gitops_rbac_policy: |
+  g, {{ ocp4_workload_authentication_admin_user }}, role:admin
+ocp4_workshop_llm_openshift_gitops_rbac_scopes: '[name,groups]'
+
+ocp4_workshop_llm_openshift_gitops_ignore_differences: |
+  resourceIdentifiers:
+  - group: jaegertracing.io
+    kind: Jaeger
+    customization:
+      jsonPointers:
+      - /spec/strategy
+  - group: apps
+    kind: Deployment
+    customization:
+      jqPathExpressions:
+      - .spec.template.spec.containers[] | select(.name == "redis")
+
+# ------------------------------------------------
+# LLM application
+# ------------------------------------------------
+ocp4_workshop_llm_llm_namespace: llm
+ocp4_workshop_llm_llm_application_name: llm
+ocp4_workshop_llm_llm_application_namespace: openshift-gitops
+
+ocp4_workshop_llm_llm_application_gitops_repo: https://github.com/btison/llm-helm.git
+ocp4_workshop_llm_llm_application_gitops_repo_tag: main
+ocp4_workshop_llm_llm_application_gitops_repo_path: llm/hf-llm
+
+# ------------------------------------------------
+# Embeddings application
+# ------------------------------------------------
+ocp4_workshop_llm_embeddings_namespace: llm
+ocp4_workshop_llm_embeddings_application_name: embeddings
+ocp4_workshop_llm_embeddings_application_namespace: openshift-gitops
+
+ocp4_workshop_llm_embeddings_application_gitops_repo: https://github.com/btison/llm-helm.git
+ocp4_workshop_llm_embeddings_application_gitops_repo_tag: main
+ocp4_workshop_llm_embeddings_application_gitops_repo_path: llm/hf-embeddings

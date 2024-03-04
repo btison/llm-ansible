@@ -1,0 +1,84 @@
+---
+
+# - name: Install OpenShift Data Foundation
+#   ansible.builtin.include_role:
+#     name: ocp4_workload_openshift_data_foundation
+#   vars:
+#     ocp4_workload_openshift_data_foundation_channel: "{{ ocp4_workshop_llm_data_foundation_channel }}"
+#     ocp4_workload_openshift_data_foundation_catalogsource_setup: "{{ ocp4_workshop_llm_data_foundation_catalogsource_setup }}"
+#     ocp4_workload_openshift_data_foundation_catalogsource_name: "{{ ocp4_workshop_llm_data_foundation_catalogsource_name }}"
+#     ocp4_workload_openshift_data_foundation_catalogsource_image: "{{ ocp4_workshop_llm_data_foundation_catalogsource_image }}"
+#     ocp4_workload_openshift_data_foundation_catalogsource_image_tag: "{{ ocp4_workshop_llm_data_foundation_catalogsource_image_tag }}"
+#     ocp4_workload_openshift_data_foundation_ceph_storage_class_name: "{{ ocp4_workshop_llm_data_foundation_ceph_storage_class_name }}"
+#     ocp4_workload_openshift_data_foundation_ceph_storage_osd_size: "{{ ocp4_workshop_llm_data_foundation_ceph_storage_osd_size }}"
+#     # Install Ceph Toolbox
+#     ocp4_workload_openshift_data_foundation_install_toolbox: "{{ ocp4_workshop_llm_data_foundation_install_toolbox }}"
+#     ocp4_workload_openshift_data_foundation_update_default_storage_class: "{{ ocp4_workshop_llm_data_foundation_update_default_storage_class }}"
+#     ocp4_workload_openshift_data_foundation_new_default_storage_class_name: "{{ ocp4_workshop_llm_data_foundation_new_default_storage_class_name }}"
+
+# - name: Install Machinesets
+#   ansible.builtin.include_role:
+#     name: ocp4_workload_machinesets
+#   vars:
+#     ocp4_workload_machinesets_disable_default_machinesets: "{{ ocp4_workshop_llm_machinesets_disable_default_machinesets }}"
+#     ocp4_workload_machinesets_wait_for_nodes: "{{ ocp4_workshop_llm_machinesets_wait_for_nodes }}"
+
+#     ocp4_workload_machinesets_machineset_groups: "{{ ocp4_workshop_llm_machinesets_machineset_groups }}"
+
+# - name: Nvidia gpu setup
+#   ansible.builtin.include_role:
+#     name: ocp4_workload_nvidia_gpu_setup
+#   vars:
+#     nfd_operator_namespace: "{{ ocp4_workshop_llm_nfd_operator_namespace }}"
+#     nfd_operator_channel: "{{ ocp4_workshop_llm_nfd_operator_channel }}"
+#     nfd_operator_automatic_install_plan_approval: "{{ ocp4_workshop_llm_nfd_operator_automatic_install_plan_approval }}"
+#     nfd_operator_starting_csv: "{{ ocp4_workshop_llm_nfd_operator_starting_csv }}"
+#     nfd_operator_wait_for_deploy: "{{ ocp4_workshop_llm_nfd_operator_wait_for_deploy }}"
+#     nfd_operator_use_catalog_snapshot: "{{ ocp4_workshop_llm_nfd_operator_use_catalog_snapshot }}"
+#     nfd_operator_catalogsource_name: "{{ ocp4_workshop_llm_nfd_operator_catalogsource_name }}"
+#     nfd_operator_catalog_snapshot_image: "{{ ocp4_workshop_llm_nfd_operator_catalog_snapshot_image }}"
+#     nfd_operator_catalog_snapshot_image_tag: "{{ ocp4_workshop_llm_nfd_operator_catalog_snapshot_image_tag }}"
+#     nvidia_gpu_operator_namespace: "{{ ocp4_workshop_llm_nvidia_gpu_operator_namespace }}"
+#     nvidia_gpu_operator_channel: "{{ ocp4_workshop_llm_nvidia_gpu_operator_channel }}"
+#     nvidia_gpu_operator_automatic_install_plan_approval: "{{ ocp4_workshop_llm_nvidia_gpu_operator_automatic_install_plan_approval }}"
+#     nvidia_gpu_operator_starting_csv: "{{ ocp4_workshop_llm_nvidia_gpu_operator_starting_csv }}"
+#     nvidia_gpu_operator_wait_for_deploy: "{{ ocp4_workshop_llm_nvidia_gpu_operator_wait_for_deploy }}"
+#     nvidia_gpu_operator_use_catalog_snapshot: "{{ ocp4_workshop_llm_nvidia_gpu_operator_use_catalog_snapshot }}"
+#     nvidia_gpu_operator_catalogsource_name: "{{ ocp4_workshop_llm_nvidia_gpu_operator_catalogsource_name }}"
+#     nvidia_gpu_operator_catalog_snapshot_image: "{{ ocp4_workshop_llm_nvidia_gpu_operator_catalog_snapshot_image }}"
+#     nvidia_gpu_operator_catalog_snapshot_image_tag: "{{ ocp4_workshop_llm_nvidia_gpu_operator_catalog_snapshot_image_tag }}"
+
+# - name: Install OpenShift Gitops
+#   ansible.builtin.include_role:
+#     name: ocp4_workload_openshift_gitops
+#   vars:
+#     ocp4_workload_openshift_gitops_channel: "{{ ocp4_workshop_llm_openshift_gitops_channel }}"
+#     ocp4_workload_openshift_gitops_pipelines_csv_prefix: "{{ ocp4_workshop_llm_openshift_gitops_pipelines_csv_prefix }}"
+#     ocp4_workload_openshift_gitops_use_catalog_snapshot: "{{ ocp4_workshop_llm_openshift_gitops_use_catalog_snapshot }}"
+#     ocp4_workload_openshift_gitops_setup_cluster_admin: "{{ ocp4_workshop_llm_openshift_gitops_setup_cluster_admin }}"
+#     ocp4_workload_openshift_gitops_update_resources: "{{ ocp4_workshop_llm_openshift_gitops_update_resources }}"
+#     ocp4_workload_openshift_gitops_update_route_tls: "{{ ocp4_workshop_llm_openshift_gitops_update_route_tls }}"
+
+#     ocp4_workload_openshift_gitops_controller_update: "{{ ocp4_workshop_llm_openshift_gitops_controller_update }}"
+#     ocp4_workload_openshift_gitops_controller_requests_cpu: "{{ ocp4_workshop_llm_openshift_gitops_controller_requests_cpu }}"
+#     ocp4_workload_openshift_gitops_controller_requests_memory: "{{ ocp4_workshop_llm_openshift_gitops_controller_requests_memory }}"
+#     ocp4_workload_openshift_gitops_controller_limits_cpu: "{{ ocp4_workshop_llm_openshift_gitops_controller_limits_cpu }}"
+#     ocp4_workload_openshift_gitops_controller_limits_memory: "{{ ocp4_workshop_llm_openshift_gitops_controller_limits_memory }}"
+
+#     ocp4_workload_openshift_gitops_repo_update: "{{ ocp4_workshop_llm_openshift_gitops_repo_update }}"
+#     ocp4_workload_openshift_gitops_repo_requests_cpu: "{{ ocp4_workshop_llm_openshift_gitops_repo_requests_cpu }}"
+#     ocp4_workload_openshift_gitops_repo_requests_memory: "{{ ocp4_workshop_llm_openshift_gitops_repo_requests_memory }}"
+#     ocp4_workload_openshift_gitops_repo_limits_cpu: "{{ ocp4_workshop_llm_openshift_gitops_repo_limits_cpu }}"
+#     ocp4_workload_openshift_gitops_repo_limits_memory: "{{ ocp4_workshop_llm_openshift_gitops_repo_limits_memory }}"
+
+#     ocp4_workload_openshift_gitops_rbac_update: "{{ ocp4_workshop_llm_openshift_gitops_rbac_update }}"
+#     ocp4_workload_openshift_gitops_rbac_policy: "{{ ocp4_workshop_llm_openshift_gitops_rbac_policy }}"
+#     ocp4_workload_openshift_gitops_rbac_scopes: "{{ ocp4_workshop_llm_openshift_gitops_rbac_scopes }}"
+
+#     ocp4_workload_openshift_gitops_ignore_differences: "{{ ocp4_workshop_llm_openshift_gitops_ignore_differences }}"
+
+# - name: Deploy LLM
+#   ansible.builtin.include_tasks: install_llm.yml
+
+- name: Deploy Embeddings
+  ansible.builtin.include_tasks: install_embeddings.yml

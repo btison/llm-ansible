@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ ocp4_workshop_llm_embeddings_application_name }}
+  namespace: {{ ocp4_workshop_llm_embeddings_application_namespace }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  destination:
+    name: ""
+    namespace: {{ ocp4_workshop_llm_embeddings_namespace }}
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+  source:
+    repoURL: {{ ocp4_workshop_llm_embeddings_application_gitops_repo }}
+    targetRevision: {{ ocp4_workshop_llm_embeddings_application_gitops_repo_tag }}
+    path: {{ ocp4_workshop_llm_embeddings_application_gitops_repo_path }}

@@ -1,0 +1,12 @@
+---
+- name: "Ensure namespace for Embeddings exists"
+  kubernetes.core.k8s:
+    state: present
+    api_version: v1
+    kind: Namespace
+    name: "{{ ocp4_workshop_llm_embeddings_namespace }}"
+
+- name: Deploy Embeddings application
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'embeddings-application.yaml.j2') }}"
